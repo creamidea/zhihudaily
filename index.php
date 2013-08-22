@@ -29,13 +29,23 @@
 <?php 
 
 if(!$_GET["before"]){
+    
+    if($_GET["refresh"] == "1"){
+        unlink('saestor://zhihudaily/' .date('Ymd'). '.txt');
+    }
+    
     if(is_file('saestor://zhihudaily/' .date('Ymd'). '.txt')){
-  	$webcode = json_decode(file_get_contents('saestor://zhihudaily/' .date('Ymd'). '.txt'), 1);
+		$webcode = json_decode(file_get_contents('saestor://zhihudaily/' .date('Ymd'). '.txt'), 1);
     }else{
 		$webcode = json_decode(file_get_contents('http://news.at.zhihu.com/api/1.2/news/latest'), 1);
     }
 }else{
     $beforeday = date('Ymd',strtotime($_GET["before"]) - 3600*24);
+    
+    if($_GET["refresh"] == "1"){
+        unlink('saestor://zhihudaily/' .$beforeday. '.txt');
+    }
+    
     if(is_file('saestor://zhihudaily/' .$beforeday. '.txt')){
         $webcode = json_decode(file_get_contents('saestor://zhihudaily/' .$beforeday. '.txt'), 1);
     }else{
@@ -44,9 +54,8 @@ if(!$_GET["before"]){
     		$webcode = json_decode($resource, 1);
     		file_put_contents('saestor://zhihudaily/' .$webcode['date']. '.txt',$resource);
         }else{
-            $url = "http://zhihudaily.sinaapp.com/";  
 			echo '<script type="text/javascript">';  
-			echo "window.location.href='$url'";  
+			echo "window.location.href='http://zhihudaily.sinaapp.com/'";  
 			echo "</script>"; 
         }
     }
@@ -57,6 +66,7 @@ if($webcode['news']['0']['image_source']){
 	echo '<span class="img-source">图片：' .$webcode['news']['0']['image_source']. '</span>'."\n";
 }
 echo "\n";
+
 echo '<img src="' .$webcode['news']['0']['image']. '" alt="">'."\n";
 echo '<div class="img-mask"></div>'."\n";
 echo '</div>'."\n";
@@ -64,7 +74,7 @@ echo "\n\n";
 
 for($i=0;$i<count($webcode['news']);$i++){
     echo '<div class="headline-background">'."\n";
-    echo '<a href="' .$webcode['news'][$i]['share_url']. '" target="_blank" class="headline-background-link">'."\n";
+    echo '<a href="' .$webcode['news'][$i]['share_url']. '" target="_blank"  class="headline-background-link">'."\n";
     echo '<div class="heading-content">' .$webcode['news'][$i]['title']. '</div>'."\n";
     echo '<i class="icon-arrow-right"></i>'."\n";
     echo '</a>'."\n";
@@ -80,11 +90,20 @@ echo '<div class="footer">'."\n";
 echo '<div class="f">'."\n";
 echo '<a target="_self" href="http://zhihudaily.sinaapp.com/index.php?before=' .$webcode['date']. '" class="download-btn">前一天</a>'."\n";
 
+
+echo '</div>';
+echo '<br>';
+echo '<br>';
+echo '&copy; 2013 知乎 &middot; Powered by <a href="https://github.com/faceair/zhihudaily">faceair</a> &middot; ';
+
+if(!$_GET["before"]){
+    echo '<a target="_self" href="http://zhihudaily.sinaapp.com/index.php?refresh=1">强制刷新</a>';
+}else{
+    echo '<a target="_self" href="http://zhihudaily.sinaapp.com/index.php?before=' .$_GET["before"]. '&refresh=1">强制刷新</a>';
+}
+
 ?>
-</div>
-<br>
-<br>
-&copy; 2013 知乎 &middot; Powered by <a href="http://www.faceair.net/">faceair</a>&nbsp;
+    
 <script>
 var _hmt = _hmt || [];
 (function() {
