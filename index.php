@@ -14,8 +14,7 @@
 <div class="global-header">
 <div class="main-wrap">
 <div class="download">
-<a href="https://itunes.apple.com/cn/app/id639087967?mt=8" class="button" data-device="ios"><i class="sprite-ico-Button_iPhone2x"></i> <span>iPhone</span></a>
-<a href="http://daily.zhihu.com/download/android" class="button" data-device="android-local"><i class="sprite-ico-Button_Android2x"></i> <span>Android</span></a>
+<a target="_self" href="http://zhihudaily.sinaapp.com/search.php" class="button"><span>搜索</span></a>
 </div>
 <a href="/" target="_self" title="知乎日报"><i class="web-logo"></i></a>
 </div>
