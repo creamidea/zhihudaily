@@ -1,4 +1,9 @@
 <?php
+
+/*
+9月15抓取的数据库，导入即可：http://zhihudaily-zhihudaily.stor.sinaapp.com/daily.sql
+*/
+
 $mysql = new SaeMysql();
 
 function cleanHtml($str){
