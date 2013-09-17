@@ -47,17 +47,14 @@ if($_GET["keyword"] and $_GET["type"]){
     $max = $page * 20;
     
     if($_GET["type"] == "标题"){
-        $data = $mysql->getData("SELECT count(title) FROM `daily` WHERE (CONVERT(`title` USING utf8 ) LIKE  '%$keyword%' OR CONVERT(`true_title` USING utf8 ) LIKE  '%$keyword%') LIKE  '%$keyword%')");
-        $allcount = $data[0]["count(title)"];
-        $data = $mysql->getData("SELECT title,share_url FROM `daily` WHERE (CONVERT(`title` USING utf8 ) LIKE  '%$keyword%' OR CONVERT(`true_title` USING utf8 ) LIKE  '%$keyword%') LIMIT $min, $max");
+        $data = $mysql->getData("SELECT title,ga_prefix,share_url FROM `daily` WHERE (CONVERT(`title` USING utf8 ) LIKE  '%$keyword%' OR CONVERT(`true_title` USING utf8 ) LIKE  '%$keyword%') LIMIT $min, $max");
     }elseif($_GET["type"] == "全文"){
-        $data = $mysql->getData("SELECT count(title) FROM `daily` WHERE (CONVERT(`body` USING utf8 ) LIKE  '%$keyword%')");
-        $allcount = $data[0]["count(title)"];
-        $data = $mysql->getData("SELECT title,share_url FROM `daily` WHERE (CONVERT(`body` USING utf8 ) LIKE  '%$keyword%') LIMIT $min, $max");
+        $data = $mysql->getData("SELECT title,ga_prefix,share_url FROM `daily` WHERE (CONVERT(`body` USING utf8 ) LIKE  '%$keyword%') LIMIT $min, $max");
     }
     for($i=0;$i<count($data);$i++){
     	echo '<div class="headline-background">';
         echo '<a href="' .$data[$i]['share_url']. '" target="_blank"  class="headline-background-link">';
+        echo '<div class="heading">' .substr($data[$i]['ga_prefix'],0,4). '</div>';
         echo '<div class="heading-content">' .$data[$i]['title']. '</div>';
         echo '<i class="icon-arrow-right"></i>';
         echo '</a>';
@@ -69,7 +66,7 @@ if($_GET["keyword"] and $_GET["type"]){
     echo '<div class="footer">';
     echo '<div class="f">';
     
-    if($allcount > $page * 20){
+    if($i == 20){
         echo  '<a target="_self" href="http://zhihudaily.sinaapp.com/search.php?keyword=' .$keyword. '&page=' .++$page. '&type=' .$_GET["type"]. '" class="download-btn">下一页</a>';
     }elseif($page != 1 and $i > 0){
         echo  '<a target="_self" href="http://zhihudaily.sinaapp.com/search.php?keyword=' .$keyword. '&page=' .--$page. '&type=' .$_GET["type"]. '" class="download-btn">上一页</a>';
@@ -77,7 +74,7 @@ if($_GET["keyword"] and $_GET["type"]){
     
 }else{
     echo '<div class="center">';
-    echo '搜索试运行中，欢迎大牛<a href="https://github.com/faceair/zhihudaily">贡献代码</a>。';
+    echo '搜索试运行中，手机显示页面有问题，欢迎大牛<a href="https://github.com/faceair/zhihudaily">贡献代码</a>帮忙解决。';
     echo '</div>';
     echo '</div>';
     echo  '</div>';
