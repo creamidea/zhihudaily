@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>知乎日报</title>
 <meta name="apple-itunes-app" content="app-id=639087967">
-<meta name="viewport" content="width=device-width">
+<meta name = "viewport" content ="initial-scale=1.0,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="http://daily.zhihu.com/css/share.css">
 <script src="http://upcdn.b0.upaiyun.com/libs/modernizr/modernizr-2.6.2.min.js"></script>
 <base target="_blank">
