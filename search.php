@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>知乎日报 - 搜索</title>
 <meta name="apple-itunes-app" content="app-id=639087967">
-<meta name="viewport" content="width=device-width">
+<meta name = "viewport" content ="initial-scale=1.0,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="http://daily.zhihu.com/css/share.css">
 <link href="bootstrap.min.css" rel="stylesheet">
 <script src="http://upcdn.b0.upaiyun.com/libs/modernizr/modernizr-2.6.2.min.js"></script>
@@ -30,7 +30,7 @@
     <option <?php if($_GET["type"] == "标题")(print 'selected="selected"')?>>标题</option>
     <option <?php if($_GET["type"] == "全文")(print 'selected="selected"')?>>全文</option>
 </select>
-  <input type="text" name="keyword" class="input-medium search-query"  value="<?php print $_GET["keyword"]?>">
+  <input type="text" name="keyword" class="input-small search-query"  value="<?php print $_GET["keyword"]?>">
   <button type="submit" class="btn">搜索</button>
 </form>
 </div>
