@@ -22,12 +22,12 @@ $str .= '<language>zh-CN</language>' . "\n";
 $str .= '<sy:updatePeriod>faceair</sy:updatePeriod>' . "\n";
 $str .= '<generator>http://zhihudaily.sinaapp.com/</generator>' . "\n";
 
-$items = $mysql->getData('SELECT body,share_url,title FROM `daily` ORDER BY  `daily`.`ga_prefix` DESC LIMIT 0 , 20');
+$items = $mysql->getData('SELECT * FROM `daily` ORDER BY  `daily`.`ga_prefix` DESC LIMIT 0 , 20');
 foreach($items as $item){ 
     $str .= '<item>' . "\n";
     $str .= '<title><![CDATA[' . $item['title'] . ']]></title>' . "\n";
     $str .= '<link>' . $item['share_url'] . '</link>' . "\n";
-    $str .= '<pubDate>' . date(DATE_RSS, strtotime('2013'.$item['time'])) . '</pubDate>' . "\n";
+    $str .= '<pubDate>' . date(DATE_RSS,mktime(substr($item['ga_prefix'],4,2),0,0,substr($item['date'],4,2),substr($item['date'],6,2),substr($item['date'],0,4))) . '</pubDate>' . "\n";
     $str .= '<dc:creator>知乎日报</dc:creator>' . "\n";
     $str .= '<guid isPermaLink="false">' . $item['share_url'] . '</guid>' . "\n";
     $str .= '<description><![CDATA[' . $item['body'] . ']]></description>' . "\n";
