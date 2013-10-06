@@ -15,7 +15,7 @@
 	<div class="main-wrap">
 		<div class="search">
 			<a target="_self" href="http://zhihudaily.sinaapp.com/search.php" class="button"><span>搜索</span></a>
-            <a target="_self" href="http://zhihudaily.sinaapp.com/rss.php" class="rss"><span>RSS</span></a>
+            		<a target="_self" href="http://zhihudaily.sinaapp.com/rss.xml" class="rss"><span>RSS</span></a>
 		</div>
 		<a href="/" target="_self" title="知乎日报"><i class="web-logo"></i></a>
 	</div>
