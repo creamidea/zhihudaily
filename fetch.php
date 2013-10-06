@@ -1,26 +1,11 @@
 <?php
 
 /*
-9月15抓取的数据库，导入即可：http://zhihudaily-zhihudaily.stor.sinaapp.com/daily.sql
+10月5抓取的数据库，导入即可：http://zhihudaily-zhihudaily.stor.sinaapp.com/daily.sql
 */
 
+<?php
 $mysql = new SaeMysql();
-
-function cleanHtml($str){
-    $str = trim($str);
-    $str = strip_tags($str,"");
-    $str = preg_replace("/&.+;/","",$str);
-    $str = str_replace("\t","",$str);
-    $str = str_replace("\t","",$str);
-    $str = str_replace("\r\n","",$str);
-    $str = str_replace("\r","",$str);
-    $str = str_replace("\n","",$str);
-    $str = str_replace(" ","",$str);
-    $str = str_replace("	","",$str);
-    $str = str_replace("查看知乎讨论"," ",$str);
-    $str = str_replace("查看更多讨论"," ",$str);
-    return trim($str);
-}
 
 function getday($day) {
     if($day == 'today'){
@@ -33,16 +18,19 @@ function getday($day) {
     return json_decode($webcode, true);
 }
 
-function dealday($html,$mysql,$add) {
-    for($i=0;$i<count($html['news']);$i++){
+function dealday($html,$mysql) {
+    global $add;
+
+    $html_news = count($html['news']);
+    for($i=0;$i<$html_news;$i++){
         $news = $html['news'][$i];
         
-        if(in_array($news['id'], $add)){
+        if(in_array($news['id'],$add)){
             return false;
         }
-            
+
         $page = json_decode(file_get_contents($news['url']), true);
-        $body = mysql_escape_string(cleanHtml($page['body']));
+        $body = mysql_escape_string($page['body']);
         $title = mysql_escape_string($news['title']);
         
         $true_title = "";
@@ -55,7 +43,8 @@ function dealday($html,$mysql,$add) {
         $share_url = mysql_escape_string($news['share_url']);
         $ga_prefix = mysql_escape_string($news['ga_prefix']);
         $id = $news['id'];
-        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body')";
+
+        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body,time) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body')";
         $mysql->runSql($sql);
     }
     return $html['date'];
@@ -69,5 +58,5 @@ foreach($data as $value){
 
 $day = 'today';
 while($day){
-    $day = dealday(getday($day),$mysql,$add);
+    $day = dealday(getday($day),$mysql);
 }
