@@ -44,7 +44,7 @@ function dealday($html,$mysql) {
         $ga_prefix = mysql_escape_string($news['ga_prefix']);
         $id = $news['id'];
 
-        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body,time) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body')";
+        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body')";
         $mysql->runSql($sql);
     }
     return $html['date'];
