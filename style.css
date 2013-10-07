@@ -109,7 +109,7 @@ html.no-touch .headline-background:hover {
 .headline-background-link {
   line-height: 2em;
   position: relative;
-  padding: 25px 40px;
+  padding: 25px;
   display: block;
   text-decoration: none;
 }
@@ -212,8 +212,11 @@ html.no-touch .footer a:hover {
     right: 10px !important;
     font-size: 9px;
   }
+  .img-wrap img {
+    margin-top: 2%;
+  }
   .headline-background-link {
-    padding: 20px 45px 20px 20px !important;
+    padding: 20px 20px 20px 20px !important;
   }
   .headline-title {
     font-size: 21px;
@@ -247,7 +250,7 @@ a.page-btn {
     font-size: 15px;
   }
 .center {
-  padding: 100px 0px 15px;
+    padding: 100px 0px 15px;
   }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 200/100), only screen and (min-device-pixel-ratio: 2) {
