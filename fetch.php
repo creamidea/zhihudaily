@@ -1,17 +1,9 @@
 <?php
-
-/*
-10月5抓取的数据库，导入即可：http://zhihudaily-zhihudaily.stor.sinaapp.com/daily.sql
-*/
-
-<?php
 $mysql = new SaeMysql();
 
 function getday($day) {
     if($day == 'today'){
         $webcode = file_get_contents("http://news.at.zhihu.com/api/1.2/news/latest");
-        
-        file_put_contents('saestor://zhihudaily/' .date('Ymd'). '.txt',$webcode);
     }else{
         $webcode = file_get_contents("http://news.at.zhihu.com/api/1.2/news/before/$day");
     }
@@ -42,9 +34,12 @@ function dealday($html,$mysql) {
         $true_title = mysql_escape_string($true_title);
         $share_url = mysql_escape_string($news['share_url']);
         $ga_prefix = mysql_escape_string($news['ga_prefix']);
-        $id = $news['id'];
+        $id = mysql_escape_string($news['id']);
+        $image = mysql_escape_string($news['image']);
+        $image_source = mysql_escape_string($news['image_source']);
+        $date = mysql_escape_string($html['date']);
 
-        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body')";
+        $sql = "INSERT ignore INTO daily (title,true_title,share_url,ga_prefix,id,body,date,image,image_source) VALUES ('$title','$true_title','$share_url','$ga_prefix','$id','$body','$date','$image','$image_source')";
         $mysql->runSql($sql);
     }
     return $html['date'];
