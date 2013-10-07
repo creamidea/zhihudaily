@@ -28,7 +28,8 @@
 $mysql = new SaeMysql();
 
 if(!$_GET["before"]){
-    $day = date('Ymd');
+	$data = $mysql->getData("SELECT date FROM `latest` WHERE latest= 'zhihu'");
+	$day = $data[0]['date'];
 }else{
 	$day = date('Ymd',strtotime($_GET["before"]) - 3600*24);
 }
@@ -63,9 +64,9 @@ echo '		<div class="headline-background">
 </div>
 
 <div class="footer">
-    <div class="f">
+	<div class="f">
 		<?php echo '<a target="_self" href="http://zhihudaily.sinaapp.com/index.php?before=' .$day. '" class="page-btn">前一天</a>';?>
-    </div>
+	</div>
 	<br>&copy; 2013 知乎 &middot; Powered by <a href="https://github.com/faceair/zhihudaily">faceair</a>
 
 <script>
