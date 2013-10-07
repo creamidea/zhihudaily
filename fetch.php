@@ -2,8 +2,14 @@
 $mysql = new SaeMysql();
 
 function getday($day) {
+    global $mysql;
+    
     if($day == 'today'){
         $webcode = file_get_contents("http://news.at.zhihu.com/api/1.2/news/latest");
+        
+        $resource = json_decode($webcode,1);
+        $date = $resource['date'];
+        $mysql->runSql("UPDATE `words` SET date = '$date' WHERE latest = 'zhihu'");
     }else{
         $webcode = file_get_contents("http://news.at.zhihu.com/api/1.2/news/before/$day");
     }
@@ -12,7 +18,8 @@ function getday($day) {
 
 function dealday($html,$mysql) {
     global $add;
-
+	global $mysql;
+    
     $html_news = count($html['news']);
     for($i=0;$i<$html_news;$i++){
         $news = $html['news'][$i];
