@@ -9,7 +9,7 @@ function getday($day) {
         
         $resource = json_decode($webcode,1);
         $date = $resource['date'];
-        $mysql->runSql("UPDATE `words` SET date = '$date' WHERE latest = 'zhihu'");
+        $mysql->runSql("UPDATE `latest` SET date = '$date' WHERE latest = 'zhihu'");
     }else{
         $webcode = file_get_contents("http://news.at.zhihu.com/api/1.2/news/before/$day");
     }
