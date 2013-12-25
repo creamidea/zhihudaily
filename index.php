@@ -33,7 +33,7 @@ if(!isset($_GET["before"])){
 }else{
 	$day = date('Ymd',strtotime($_GET["before"]) - 3600*24);
 	$mysql = new SaeMysql();
-    $news = $mysql->getData("SELECT * FROM `zhihudaily` WHERE date = '$day' ORDER BY `zhihudaily`.`date_index` DESC");
+    $news = $mysql->getData("SELECT * FROM `zhihudaily` WHERE date = '$day' ORDER BY - `date_index`");
     if(count($news) == 0){
     	$data = json_decode(file_get_contents("http://zhihudaily.sinaapp.com/fetch_day.php?before=" . $_GET["before"]),true);
     	$day = $data['date'];
