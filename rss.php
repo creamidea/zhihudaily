@@ -15,14 +15,15 @@ $str .= '<channel>' . "\n";
 $str .= '<title>知乎日报</title>' . "\n";
 $url = 'http://'  . $_SERVER['SERVER_NAME'] . ($_SERVER["SERVER_PORT"] == 80 ? '' : ':' . $_SERVER["SERVER_PORT"]) . $_SERVER["REQUEST_URI"]; 
 $str .= '<atom:link href="' . $url . '" rel="self" type="application/rss+xml" />' . "\n";
-$str .= '<link>http://daily.zhihu.com/</link>' . "\n";
+$str .= '<link>http://zhihudaily.sinaapp.com/</link>' . "\n";
 $str .= '<description>知乎日报</description>' . "\n";
 $str .= '<lastBuildDate>'. date(DATE_RSS) . '</lastBuildDate>' . "\n";
 $str .= '<language>zh-CN</language>' . "\n";
 $str .= '<sy:updatePeriod>faceair</sy:updatePeriod>' . "\n";
 $str .= '<generator>http://zhihudaily.sinaapp.com/</generator>' . "\n";
 
-$items = $mysql->getData('SELECT * FROM `daily` ORDER BY  `daily`.`ga_prefix` DESC LIMIT 0 , 20');
+$day = date('Ymd',time());
+$items = $mysql->getData("SELECT * FROM `zhihudaily` WHERE date = '$day' ORDER BY - `date_index`");
 foreach($items as $item){ 
     $str .= '<item>' . "\n";
     $str .= '<title><![CDATA[' . $item['title'] . ']]></title>' . "\n";
