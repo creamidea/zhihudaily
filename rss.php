@@ -22,7 +22,7 @@ $str .= '<language>zh-CN</language>' . "\n";
 $str .= '<sy:updatePeriod>faceair</sy:updatePeriod>' . "\n";
 $str .= '<generator>http://zhihudaily.sinaapp.com/</generator>' . "\n";
 
-$day = date('Ymd',time());
+$day = date('Ymd',time() - 3600*24);
 $items = $mysql->getData("SELECT * FROM `zhihudaily` WHERE date = '$day' ORDER BY - `date_index`");
 foreach($items as $item){ 
     $str .= '<item>' . "\n";
