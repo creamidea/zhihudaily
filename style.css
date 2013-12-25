@@ -74,7 +74,8 @@ html.no-touch .button:hover {
 .rss span {
   vertical-align: -2px;
 }
-html.no-touch .rss:hover {
+
+html.no-touch .btn:hover {
   background-color: #1fb3f0;
 }
 
