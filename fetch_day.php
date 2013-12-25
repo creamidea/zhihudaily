@@ -8,9 +8,8 @@ if(empty($_GET["before"])){
 }
 $html = json_decode($webcode, true);
 $news_count = count($html['news']);
-for($i = $news_count - 1;$i>=0;$i--){
-
-    $date_index = $news_count - $i;
+$html['news'] = array_reverse($html['news']);
+for( $i = 1;$i < $news_count; $i++ ){
     $news = $html['news'][$i];
     
     $page = json_decode(file_get_contents($news['url']), true);
@@ -22,6 +21,6 @@ for($i = $news_count - 1;$i>=0;$i--){
     $image_source = mysql_escape_string($news['image_source']);
     $date = mysql_escape_string($html['date']);
 
-    $mysql->runSql("INSERT ignore INTO `zhihudaily` (title,share_url,id,body,date,image,image_source,date_index) VALUES ('$title','$share_url','$id','$body','$date','$image','$image_source','$date_index')");
+    $mysql->runSql("INSERT ignore INTO `zhihudaily` (title,share_url,id,body,date,image,image_source,date_index) VALUES ('$title','$share_url','$id','$body','$date','$image','$image_source','$i')");
 }
 print $webcode;
