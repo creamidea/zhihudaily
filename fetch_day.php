@@ -9,7 +9,7 @@ if(empty($_GET["before"])){
 $html = json_decode($webcode, true);
 $news_count = count($html['news']);
 $html['news'] = array_reverse($html['news']);
-for( $i = 1;$i < $news_count; $i++ ){
+for( $i = 0;$i < $news_count; $i++ ){
     $news = $html['news'][$i];
     
     $page = json_decode(file_get_contents($news['url']), true);
