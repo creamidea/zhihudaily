@@ -51,7 +51,7 @@ $image = $news['0']['image'];
 
 echo '			<h1 class="headline-title">' .$display_date. '</h1>
 			<span class="img-source">图片：' .$image_source. '</span>
-			<img src="' .$image. '" alt="' .$image_source.'">
+			<img src="now_img.php" alt="' .$image_source.'">
 		</div>'."\n";
 
 for($i=0;$i<count($news);$i++){
